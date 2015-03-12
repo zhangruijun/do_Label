@@ -14,7 +14,7 @@
 #import "doIScriptEngine.h"
 #include "doTextHelper.h"
 
-@implementation DoExt_Label_View
+@implementation DoExt_Label_UIView
 {
     NSString *_myFontStyle;
 }
