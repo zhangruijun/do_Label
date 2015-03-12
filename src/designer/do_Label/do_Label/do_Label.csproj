@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>doUIViewDesign</RootNamespace>
-    <AssemblyName>doUIViewDesign.Label</AssemblyName>
+    <AssemblyName>doUIViewDesign.do_Label</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
