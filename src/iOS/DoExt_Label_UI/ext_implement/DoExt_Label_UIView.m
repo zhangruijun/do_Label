@@ -12,6 +12,7 @@
 #import "doUIModuleHelper.h"
 #import "doScriptEngineHelper.h"
 #import "doIScriptEngine.h"
+#include "doTextHelper.h"
 
 @implementation DoExt_Label_View
 {
@@ -50,21 +51,21 @@
  获取属性最初的默认值
  NSString *属性名 = [(doUIModule *)_model GetProperty:@"属性名"].DefaultValue;
  */
-- (void)change_text:(NSString *)text
+- (void)change_text:(NSString *)newValue
 {
-    [self setText:text];
+    [self setText:newValue];
     if(_myFontStyle)
         [self change_fontStyle:_myFontStyle];
     [self myAutoSize];
 }
-- (void)change_fontColor:(NSString *)fontColor
+- (void)change_fontColor:(NSString *)newValue
 {
-    UIColor *color = [doUIModuleHelper GetColorFromString:fontColor :[UIColor blackColor]];
+    UIColor *color = [doUIModuleHelper GetColorFromString:newValue :[UIColor blackColor]];
     [self setTextColor:color];
 }
-- (void)change_fontStyle:(NSString *)fontStyle
+- (void)change_fontStyle:(NSString *)newValue
 {
-    _myFontStyle = [NSString stringWithFormat:@"%@",fontStyle];
+    _myFontStyle = [NSString stringWithFormat:@"%@",newValue];
     NSRange range = {0,[self.text length]};
     NSMutableAttributedString *str = [self.attributedText mutableCopy];
     [str removeAttribute:NSUnderlineStyleAttributeName range:range];
@@ -73,13 +74,13 @@
     NSInteger size = [[_model GetPropertyValue:@"fontSize"] intValue];
     if(size <= 0)
         size = [[_model GetProperty:@"fontSize"].DefaultValue intValue];
-    if([fontStyle isEqualToString:@"normal"])
+    if([newValue isEqualToString:@"normal"])
         [self setFont:[UIFont systemFontOfSize:size]];
-    else if([fontStyle isEqualToString:@"bold"])
+    else if([newValue isEqualToString:@"bold"])
         [self setFont:[UIFont boldSystemFontOfSize:size]];
-    else if([fontStyle isEqualToString:@"italic"])
+    else if([newValue isEqualToString:@"italic"])
         [self setFont:[UIFont italicSystemFontOfSize:size]];
-    else if([fontStyle isEqualToString:@"underline"])
+    else if([newValue isEqualToString:@"underline"])
     {
         NSMutableAttributedString *content = [[NSMutableAttributedString alloc]initWithString:self.text];
         NSRange contentRange = {0,[content length]};
@@ -87,55 +88,58 @@
         self.attributedText = content;
     }
 }
-- (void)change_fontSize:(NSString *)fontSize
+- (void)change_fontSize:(NSString *)newValue
 {
     UIFont *font = self.font;
     if(!font)
+    {
         font = [UIFont systemFontOfSize:[[_model GetProperty:@"fontSize"].DefaultValue intValue]];
-    font = [font fontWithSize:[fontSize intValue]];
+    }
+    int _intFontSize = [doUIModuleHelper GetDeviceFontSize:[[doTextHelper Instance] StrToInt:newValue :[[_model GetProperty:@"fontSize"].DefaultValue intValue]] :_model.XZoom :_model.YZoom];
+    font = [font fontWithSize:_intFontSize];
     self.font = font;
     [self myAutoSize];
 }
-- (void)change_textAlign:(NSString *)textAlign
+- (void)change_textAlign:(NSString *)newValue
 {
-    if([textAlign isEqualToString:@"left"])
+    if([newValue isEqualToString:@"left"])
         [self setTextAlignment:NSTextAlignmentLeft];
-    else if([textAlign isEqualToString:@"center"])
+    else if([newValue isEqualToString:@"center"])
         [self setTextAlignment:NSTextAlignmentCenter];
-    else if([textAlign isEqualToString:@"right"])
+    else if([newValue isEqualToString:@"right"])
         [self setTextAlignment:NSTextAlignmentRight];
 }
-- (void)change_maxWidth:(NSString *)maxWidth
+- (void)change_maxWidth:(NSString *)newValue
 {
-    if([maxWidth floatValue] > 0)
+    if([newValue floatValue] > 0)
     {
         CGSize size = [self autoSize:CGFLOAT_MAX :_model.RealHeight];
         CGFloat w;
-        if([maxWidth floatValue] >= size.width)
+        if([newValue floatValue] >= size.width)
             w = size.width;
         else
-            w = [maxWidth floatValue];
+            w = [newValue floatValue];
         [_model SetPropertyValue:@"width" :[NSString stringWithFormat:@"%f",w/_model.XZoom]];
         [self OnRedraw];
     }
 }
-- (void)change_maxHeight:(NSString *)maxHeight
+- (void)change_maxHeight:(NSString *)newValue
 {
-    if([maxHeight floatValue] > 0)
+    if([newValue floatValue] > 0)
     {
         CGSize size = [self autoSize:_model.RealWidth :CGFLOAT_MAX];
         CGFloat h;
-        if([maxHeight floatValue] >= size.height)
+        if([newValue floatValue] >= size.height)
             h = size.height;
         else
-            h = [maxHeight floatValue];
+            h = [newValue floatValue];
         [_model SetPropertyValue:@"height" :[NSString stringWithFormat:@"%f",h/_model.YZoom]];
         [self OnRedraw];
     }
 }
-- (void)change_maxLines:(NSString *)maxLines
+- (void)change_maxLines:(NSString *)newValue
 {
-    NSInteger number = [maxLines integerValue];
+    NSInteger number = [newValue integerValue];
     if(number < 0)
         number = [[_model GetProperty:@"maxLines"].DefaultValue intValue];
     self.numberOfLines = number;
