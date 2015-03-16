@@ -3,5 +3,5 @@ package extdefine;
 /**
  * 声明自定义扩展组件方法
  */
-public interface Do_Label_IMethod {
+public interface do_Label_IMethod {
 }
