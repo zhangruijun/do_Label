@@ -11,7 +11,7 @@
 #import "DoExt_Label_UIModel.h"
 #import "doIUIModuleView.h"
 
-@interface DoExt_Label_View : UILabel<DoExt_Label_IView,doIUIModuleView>
+@interface DoExt_Label_UIView : UILabel<DoExt_Label_IView,doIUIModuleView>
 //可根据具体实现替换UIView
 {
     @private
