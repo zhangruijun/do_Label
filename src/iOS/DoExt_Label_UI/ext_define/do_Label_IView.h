@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol DoExt_Label_IView <NSObject>
+@protocol do_Label_IView <NSObject>
 
 @required
 //属性方法

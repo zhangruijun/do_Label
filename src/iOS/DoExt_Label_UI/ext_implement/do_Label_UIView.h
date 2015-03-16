@@ -7,15 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DoExt_Label_IView.h"
-#import "DoExt_Label_UIModel.h"
+#import "do_Label_IView.h"
+#import "do_Label_UIModel.h"
 #import "doIUIModuleView.h"
 
-@interface DoExt_Label_UIView : UILabel<DoExt_Label_IView,doIUIModuleView>
+@interface do_Label_UIView : UILabel<do_Label_IView,doIUIModuleView>
 //可根据具体实现替换UIView
 {
     @private
-    __weak DoExt_Label_UIModel *_model;
+    __weak do_Label_UIModel *_model;
 }
 
 @end
