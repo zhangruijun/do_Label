@@ -149,8 +149,8 @@
 #pragma mark - private
 - (void)myAutoSize
 {
-    [self change_maxWidth:[_model GetPropertyValue:@"maxWidth"]];
     [self change_maxHeight:[_model GetPropertyValue:@"maxHeight"]];
+    [self change_maxWidth:[_model GetPropertyValue:@"maxWidth"]];
 }
 
 - (CGSize)autoSize:(CGFloat)wight :(CGFloat)height
