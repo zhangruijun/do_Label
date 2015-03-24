@@ -46,6 +46,7 @@ public class do_Label_View extends TextView implements DoIUIModuleView,do_Label_
 		this.setMaxWidth((int)(100*this.model.getXZoom()));
 		this.setMaxHeight((int)(100*this.model.getYZoom()));
 		this.setMaxLines(3);
+		this.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
 	}
 	
 	/**
