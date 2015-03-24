@@ -43,6 +43,9 @@ public class do_Label_View extends TextView implements DoIUIModuleView,do_Label_
 	public void loadView(DoUIModule _doUIModule) throws Exception {
 		this.model = (do_Label_MAbstract)_doUIModule;
 		this.setTextColor(Color.BLACK);
+		this.setMaxWidth((int)(100*this.model.getXZoom()));
+		this.setMaxHeight((int)(100*this.model.getYZoom()));
+		this.setMaxLines(3);
 	}
 	
 	/**
@@ -75,17 +78,17 @@ public class do_Label_View extends TextView implements DoIUIModuleView,do_Label_
 		}
 
 		if (_changedValues.containsKey("maxWidth")) {
-			int _maxWidth = (int) (DoTextHelper.strToDouble(_changedValues.get("maxWidth"), 0) * this.model.getXZoom());
+			int _maxWidth = (int) (DoTextHelper.strToDouble(_changedValues.get("maxWidth"), 100) * this.model.getXZoom());
 			this.setMaxWidth(_maxWidth);
 		}
 
 		if (_changedValues.containsKey("maxHeight")) {
-			int _maxHeight = (int) (DoTextHelper.strToDouble(_changedValues.get("maxHeight"), 0) * this.model.getYZoom());
+			int _maxHeight = (int) (DoTextHelper.strToDouble(_changedValues.get("maxHeight"), 100) * this.model.getYZoom());
 			this.setMaxHeight(_maxHeight);
 		}
 
 		if (_changedValues.containsKey("maxLines")) {
-			int _maxLines = DoTextHelper.strToInt(_changedValues.get("maxLines"), 0);
+			int _maxLines = DoTextHelper.strToInt(_changedValues.get("maxLines"), 3);
 			this.setMaxLines(_maxLines);
 			this.setEllipsize(TruncateAt.END);
 		}
