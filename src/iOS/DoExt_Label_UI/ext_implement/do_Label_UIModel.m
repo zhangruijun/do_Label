@@ -36,8 +36,8 @@
     [self RegistProperty:[[doProperty alloc] init:@"fontStyle" : String :@"normal" :NO]];
     
     [self RegistProperty:[[doProperty alloc] init:@"textAlign" : String :@"left" :YES]];
-    [self RegistProperty:[[doProperty alloc] init:@"maxWidth" : Number :@"0" :YES]];
-    [self RegistProperty:[[doProperty alloc] init:@"maxHeight" : Number :@"0" :YES]];
+    [self RegistProperty:[[doProperty alloc] init:@"maxWidth" : Number :@"-1" :YES]];
+    [self RegistProperty:[[doProperty alloc] init:@"maxHeight" : Number :@"-1" :YES]];
     [self RegistProperty:[[doProperty alloc] init:@"maxLines" :Number :@"3" :YES]];
 }
 
