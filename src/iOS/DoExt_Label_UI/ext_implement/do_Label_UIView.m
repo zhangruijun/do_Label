@@ -12,7 +12,7 @@
 #import "doUIModuleHelper.h"
 #import "doScriptEngineHelper.h"
 #import "doIScriptEngine.h"
-#include "doTextHelper.h"
+#import "doTextHelper.h"
 
 @implementation do_Label_UIView
 {
@@ -71,30 +71,32 @@
     [str removeAttribute:NSUnderlineStyleAttributeName range:range];
     self.attributedText = str;
     
-    NSInteger size = [[_model GetPropertyValue:@"fontSize"] intValue];
-    if(size <= 0)
-        size = [[_model GetProperty:@"fontSize"].DefaultValue intValue];
+    float fontSize = self.font.pointSize;
     if([newValue isEqualToString:@"normal"])
-        [self setFont:[UIFont systemFontOfSize:size]];
+        [self setFont:[UIFont systemFontOfSize:fontSize]];
     else if([newValue isEqualToString:@"bold"])
-        [self setFont:[UIFont boldSystemFontOfSize:size]];
+        [self setFont:[UIFont boldSystemFontOfSize:fontSize]];
     else if([newValue isEqualToString:@"italic"])
-        [self setFont:[UIFont italicSystemFontOfSize:size]];
+        [self setFont:[UIFont italicSystemFontOfSize:fontSize]];
     else if([newValue isEqualToString:@"underline"])
     {
-        NSMutableAttributedString *content = [[NSMutableAttributedString alloc]initWithString:self.text];
+        NSMutableAttributedString *content = [self.attributedText mutableCopy];
         NSRange contentRange = {0,[content length]};
         [content addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:contentRange];
         self.attributedText = content;
+        [content endEditing];
+    }
+    else
+    {
+        NSString *mesg = [NSString stringWithFormat:@"不支持字体:%@",newValue];
+        [NSException raise:@"do_Label" format:mesg,@""];
     }
 }
 - (void)change_fontSize:(NSString *)newValue
 {
     UIFont *font = self.font;
     if(!font)
-    {
         font = [UIFont systemFontOfSize:[[_model GetProperty:@"fontSize"].DefaultValue intValue]];
-    }
     int _intFontSize = [doUIModuleHelper GetDeviceFontSize:[[doTextHelper Instance] StrToInt:newValue :[[_model GetProperty:@"fontSize"].DefaultValue intValue]] :_model.XZoom :_model.YZoom];
     font = [font fontWithSize:_intFontSize];
     self.font = font;
