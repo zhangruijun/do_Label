@@ -45,9 +45,6 @@ public class do_Label_View extends TextView implements DoIUIModuleView,do_Label_
 		this.model = (do_Label_MAbstract)_doUIModule;
 		this.setTextSize(TypedValue.COMPLEX_UNIT_PX, DoUIModuleHelper.getDeviceFontSize(_doUIModule, "9"));
 		this.setTextColor(Color.BLACK);
-		this.setMaxWidth((int)(100*this.model.getXZoom()));
-		this.setMaxHeight((int)(100*this.model.getYZoom()));
-		this.setMaxLines(3);
 		this.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
 	}
 	
