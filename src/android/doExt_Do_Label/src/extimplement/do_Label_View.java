@@ -5,6 +5,7 @@ import java.util.Map;
 import android.content.Context;
 import android.graphics.Color;
 import android.text.TextUtils.TruncateAt;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.widget.TextView;
 import core.helper.DoTextHelper;
@@ -42,6 +43,7 @@ public class do_Label_View extends TextView implements DoIUIModuleView,do_Label_
 	@Override
 	public void loadView(DoUIModule _doUIModule) throws Exception {
 		this.model = (do_Label_MAbstract)_doUIModule;
+		this.setTextSize(TypedValue.COMPLEX_UNIT_PX, DoUIModuleHelper.getDeviceFontSize(_doUIModule, "9"));
 		this.setTextColor(Color.BLACK);
 		this.setMaxWidth((int)(100*this.model.getXZoom()));
 		this.setMaxHeight((int)(100*this.model.getYZoom()));
